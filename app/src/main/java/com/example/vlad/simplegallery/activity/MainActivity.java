@@ -1,7 +1,9 @@
-package com.example.vlad.simplegallery;
+package com.example.vlad.simplegallery.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.vlad.simplegallery.R;
 
 public class MainActivity extends AppCompatActivity {
 
