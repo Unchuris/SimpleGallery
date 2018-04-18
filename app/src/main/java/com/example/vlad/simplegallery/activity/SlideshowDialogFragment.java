@@ -3,7 +3,6 @@ package com.example.vlad.simplegallery.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -28,6 +27,7 @@ public class SlideshowDialogFragment extends DialogFragment {
     private String TAG = SlideshowDialogFragment.class.getSimpleName();
     private ViewPager viewPager;
     private ArrayList<Image> images;
+    private MyViewPagerAdapter myViewPagerAdapter;
     private TextView lblCount, lblTitle, lblDate;
     private int selectedPosition = 0;
 
@@ -36,7 +36,7 @@ public class SlideshowDialogFragment extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_image_slider, container, false);
         viewPager = v.findViewById(R.id.viewpager);
@@ -45,12 +45,12 @@ public class SlideshowDialogFragment extends DialogFragment {
         lblDate = v.findViewById(R.id.date);
 
         images = (ArrayList<Image>) getArguments().getSerializable("images");
-        int selectedPosition = getArguments().getInt("position");
+        selectedPosition = getArguments().getInt("position");
 
         Log.e(TAG, "position: " + selectedPosition);
         Log.e(TAG, "images size: " + images.size());
 
-        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter();
+        myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
