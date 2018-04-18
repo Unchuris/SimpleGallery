@@ -52,6 +52,7 @@ public class SlideshowDialogFragment extends DialogFragment {
 
         MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
+        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
         setCurrentItem(selectedPosition);
 
@@ -62,6 +63,25 @@ public class SlideshowDialogFragment extends DialogFragment {
         viewPager.setCurrentItem(position, false);
         displayMetaInfo(selectedPosition);
     }
+
+    //	page change listener
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int position) {
+            displayMetaInfo(position);
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
+    };
 
     @SuppressLint("SetTextI18n")
     private void displayMetaInfo(int position) {
