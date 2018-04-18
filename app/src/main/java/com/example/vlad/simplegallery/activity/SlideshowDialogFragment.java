@@ -1,5 +1,6 @@
 package com.example.vlad.simplegallery.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -26,6 +28,8 @@ public class SlideshowDialogFragment extends DialogFragment {
     private String TAG = SlideshowDialogFragment.class.getSimpleName();
     private ViewPager viewPager;
     private ArrayList<Image> images;
+    private TextView lblCount, lblTitle, lblDate;
+    private int selectedPosition = 0;
 
     static SlideshowDialogFragment newInstance() {
         return new SlideshowDialogFragment();
@@ -36,6 +40,9 @@ public class SlideshowDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_image_slider, container, false);
         viewPager = v.findViewById(R.id.viewpager);
+        lblCount = v.findViewById(R.id.lbl_count);
+        lblTitle = v.findViewById(R.id.title);
+        lblDate = v.findViewById(R.id.date);
 
         images = (ArrayList<Image>) getArguments().getSerializable("images");
         int selectedPosition = getArguments().getInt("position");
@@ -53,6 +60,16 @@ public class SlideshowDialogFragment extends DialogFragment {
 
     private void setCurrentItem(int position) {
         viewPager.setCurrentItem(position, false);
+        displayMetaInfo(selectedPosition);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void displayMetaInfo(int position) {
+        lblCount.setText((position + 1) + " of " + images.size());
+
+        Image image = images.get(position);
+        lblTitle.setText(image.getName());
+        lblDate.setText(image.getTimestamp());
     }
 
     @Override
